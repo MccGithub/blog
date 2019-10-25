@@ -3,6 +3,8 @@ package util
 import (
 	"html/template"
 	"io"
+	"io/ioutil"
+	"os"
 	"path/filepath"
 )
 
@@ -10,21 +12,42 @@ var (
 	BasePath         string
 	TmplRelativePath string
 	ArtiRelativePath string
+	tmplBasePath string
+	artiBasePath string
 )
 
 type Data map[string]interface{}
 
-func GetTempPath(file string) string {
+func GetTmplBasePath() string {
+	if tmplBasePath == "" {
+		tmplBasePath = filepath.Join(BasePath, TmplRelativePath)
+	}
+	return tmplBasePath
+}
+
+func GetTmplPath(file string) string {
 	return filepath.Join(BasePath, TmplRelativePath, file)
+}
+
+func GetArtiBasePath() string {
+	if artiBasePath == "" {
+		artiBasePath = filepath.Join(BasePath, ArtiRelativePath)
+	}
+	return artiBasePath
 }
 
 func GetArtiPath(file string) string {
 	return filepath.Join(BasePath, ArtiRelativePath, file)
 }
 
+func GetFileListByPath(path string) ([]os.FileInfo, error) {
+	files, err := ioutil.ReadDir(path)
+	return files, err
+}
+
 func View(w io.Writer, data Data, file ...string) error {
 	for i, v := range file {
-		file[i] = GetTempPath(v)
+		file[i] = GetTmplPath(v)
 	}
 	tmpl, err := template.ParseFiles(file...)
 	if err != nil {
