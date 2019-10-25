@@ -25,15 +25,17 @@ func init() {
 func getCurrent() {
 	// getCurrent函数用于获取定义此函数的文件的绝对路径
 	// 故必须在main中定义并在main函数首行执行
-	_, util.TmplBasePath, _, _ = runtime.Caller(0)
-	i := strings.LastIndex(util.TmplBasePath, string(os.PathSeparator))
-	util.TmplBasePath = util.TmplBasePath[0:i+1]
+	_, util.BasePath, _, _ = runtime.Caller(0)
+	i := strings.LastIndex(util.BasePath, string(os.PathSeparator))
+	util.BasePath = util.BasePath[0:i+1]
 }
 
 func main() {
 	getCurrent()
-	// util包中根据TmplBasePath和TmplRelativePath来确定模板文件夹绝对路径
+	// util包中根据BasePath和TmplRelativePath来确定模板文件夹绝对路径
+	// util包中根据BasePath和ArtiRelativePath来确定模板文件夹绝对路径
 	util.TmplRelativePath = "../../web/template"
+	util.ArtiRelativePath = "../../web/article"
 	if lvl, err := logrus.ParseLevel(logLevel); err != nil {
 		logrus.Fatal(err)
 	} else {
