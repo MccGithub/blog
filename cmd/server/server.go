@@ -30,6 +30,7 @@ func getCurrent() {
 
 func main() {
 	getCurrent()
+	util.TmplRelativePath = "../../web/template"
 	if lvl, err := logrus.ParseLevel(logLevel); err != nil {
 		logrus.Fatal(err)
 	} else {
