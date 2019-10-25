@@ -10,7 +10,6 @@
 
         aside{width: 20%;height: 80%;float: left;}
         section{width: 80%;height: 80%;float: left;}
-
     </style>
 </head>
 <body>
@@ -29,15 +28,7 @@
     </aside>
     <section>
         <article>
-            <header style="color: blue;">
-                <!-- 这里要用模板修改为具体txt文件名 -->
-                <h3>文章标题</h3>
-                <h5>作者:韭菜</h5>
-            </header>
-            <p style="text-align: center">
-                <!-- 这里要用模板修改为具体txt文件中的内容 -->
-                文章内容
-            </p>
+            {{template "article" .}}
         </article>
     </section>
     <footer style="clear: both;text-align: center">
