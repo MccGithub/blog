@@ -20,9 +20,9 @@
         <nav>
             <b>文章列表</b><br />
             <ul>
-                <!-- 这里要用模板修改为具体txt文件列表 -->
-                <li>A</li>
-                <li>B</li>
+                {{range $_, $v := .files}}
+                    <li><a href="?file={{$v}}">{{$v}}</a></li>
+                {{end}}
             </ul>
         </nav>
     </aside>
