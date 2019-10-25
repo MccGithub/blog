@@ -8,12 +8,12 @@
 <body>
     <header style="color: blue;">
         <!-- 这里要用模板修改为具体txt文件名 -->
-        <h3>文章标题</h3>
+        <h3>{{.file}}</h3>
         <h5>作者:韭菜</h5>
     </header>
     <p style="text-align: center">
         <!-- 这里要用模板修改为具体txt文件中的内容 -->
-        文章内容
+        {{.content}}
     </p>
 </body>
 </html>
