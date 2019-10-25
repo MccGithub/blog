@@ -7,7 +7,7 @@ import (
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	if err := util.View("html/main.html", w, nil); err != nil {
+	if err := util.View(w, nil, "html/main.html", "html/article.html"); err != nil {
 		logrus.Warn(err)
 	}
 }
