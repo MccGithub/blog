@@ -4,6 +4,7 @@ import (
 	"github.com/MccGithub/blog/util"
 	"github.com/sirupsen/logrus"
 	"net/http"
+	"strings"
 )
 
 func Article(w http.ResponseWriter, r *http.Request) {
@@ -13,11 +14,11 @@ func Article(w http.ResponseWriter, r *http.Request) {
 		logrus.Warn(err)
 	}
 
-	// 提取出文件名存放在filesNames中
+	// 提取出文件名(去掉后缀名后)存放在filesNames中
 	var filesNames []string
 	for _, v := range filesInfo {
 		if !v.IsDir() {
-			filesNames = append(filesNames, v.Name())
+			filesNames = append(filesNames, v.Name()[0:strings.LastIndex(v.Name(), ".")])
 		}
 	}
 
@@ -29,7 +30,7 @@ func Article(w http.ResponseWriter, r *http.Request) {
 	// 读取url中的 file 参数值
 	fileName := r.FormValue("file")
 	if fileName == "" {
-		fileName = "welcome.txt"
+		fileName = "welcome"
 	}
 	data["file"] = fileName
 
