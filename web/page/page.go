@@ -3,6 +3,7 @@ package page
 import (
 	"github.com/MccGithub/blog/util"
 	"github.com/sirupsen/logrus"
+	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -33,6 +34,8 @@ func Article(w http.ResponseWriter, r *http.Request) {
 		fileName = "welcome"
 	}
 	data["file"] = fileName
+	content, err := ioutil.ReadFile(util.GetArtiPath(data["file"].(string))+".txt")
+	data["content"] = string(content)
 
 	if err := util.View(w, data, "html/main.html", "html/article.html"); err != nil {
 		logrus.Warn(err)
