@@ -1,12 +1,12 @@
-package page
+package index
 
 import "github.com/go-chi/chi"
 
 func Router() chi.Router {
 	router := chi.NewRouter()
 
-	router.Get("/", Article)
-	router.Get("/article", Article)
+	// 主页显示文章列表, 包括: 文章名, 作者, 文章摘要
+	router.Get("/", Articles)
 
 	return router
 }

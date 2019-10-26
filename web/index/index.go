@@ -1,4 +1,4 @@
-package page
+package index
 
 import (
 	"github.com/MccGithub/blog/util"
@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func Article(w http.ResponseWriter, r *http.Request) {
+func Articles(w http.ResponseWriter, r *http.Request) {
 	// 获取存放文章文件夹中的文件信息
 	filesInfo, err := util.GetFileListByPath(util.GetArtiBasePath())
 	if err != nil {
