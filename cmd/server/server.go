@@ -17,6 +17,8 @@ var (
 
 func init() {
 	flag.StringVar(&opt.Address, "listen", ":80", "listening address")
+	flag.StringVar(&opt.DBDriver, "db.driver", "sqlite3", "database driver. supported: sqlit3")
+	flag.StringVar(&opt.DBConn, "db.conn", "", "connection string")
 	flag.StringVar(&logLevel, "log.level", "warn", "logging level: trace, debug, info, error, fatal")
 
 	flag.Parse()
