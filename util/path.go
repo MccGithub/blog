@@ -10,10 +10,12 @@ import (
 
 var (
 	BasePath         string
+	DbRelativePath string
 	TmplRelativePath string
 	ArtiRelativePath string
 	tmplBasePath string
 	artiBasePath string
+	dbBasePath string
 )
 
 type Data map[string]interface{}
@@ -23,6 +25,13 @@ func GetTmplBasePath() string {
 		tmplBasePath = filepath.Join(BasePath, TmplRelativePath)
 	}
 	return tmplBasePath
+}
+
+func GetDbBasePath() string {
+	if dbBasePath == "" {
+		dbBasePath = filepath.Join(BasePath, DbRelativePath)
+	}
+	return dbBasePath
 }
 
 func GetTmplPath(file string) string {
