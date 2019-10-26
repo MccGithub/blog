@@ -18,7 +18,7 @@ var (
 func init() {
 	flag.StringVar(&opt.Address, "listen", ":80", "listening address")
 	flag.StringVar(&opt.DBDriver, "db.driver", "sqlite3", "database driver. supported: sqlit3")
-	flag.StringVar(&opt.DBConn, "db.conn", "", "connection string")
+	flag.StringVar(&opt.DBConn, "db.conn", "data.db", "connection string")
 	flag.StringVar(&logLevel, "log.level", "warn", "logging level: trace, debug, info, error, fatal")
 
 	flag.Parse()
@@ -35,9 +35,9 @@ func getCurrent() {
 func main() {
 	getCurrent()
 	// util包中根据BasePath和TmplRelativePath来确定模板文件夹绝对路径
-	// util包中根据BasePath和ArtiRelativePath来确定模板文件夹绝对路径
+	// util包中根据BasePath和DbRelativePath来确定模板文件夹绝对路径
 	util.TmplRelativePath = "../../web/template"
-	util.ArtiRelativePath = "../../web/article"
+	util.DbRelativePath = "../../"
 	if lvl, err := logrus.ParseLevel(logLevel); err != nil {
 		logrus.Fatal(err)
 	} else {
