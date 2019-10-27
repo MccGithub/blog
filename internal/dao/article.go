@@ -23,8 +23,10 @@ func (article *Article) Get() error {
 	if err != nil {
 		return err
 	}
-	if err = rows.Scan(&article.Name, &article.Author, &article.Brief, &article.Content); err != nil {
-		return err
+	for rows.Next() {
+		if err = rows.Scan(&article.Name, &article.Author, &article.Brief, &article.Content); err != nil {
+			return err
+		}
 	}
 	return err
 }
