@@ -36,7 +36,7 @@
         <article>
             {{if eq .target "details"}}
                 <!-- details是文章详情, 传进来的参数是具体的一篇文章的信息 -->
-                {{template "details" .}}
+                {{template "details" .details}}
             {{else}}
                 <!-- articles是文章列表, 传进来的参数是多个文件信息的列表 -->
                 {{template "articles" .articles}}
