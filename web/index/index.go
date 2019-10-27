@@ -1,9 +1,11 @@
 package index
 
 import (
+	"github.com/MccGithub/blog/internal/dao"
 	"github.com/MccGithub/blog/util"
 	"github.com/sirupsen/logrus"
 	"net/http"
+	"strconv"
 )
 
 // 这是文章存储为txt文件时的实现
@@ -46,13 +48,24 @@ func Articles(w http.ResponseWriter, r *http.Request) {
 		"html/articles.html",
 		"html/details.html",
 	}
-	// 传入模拟数据以测试, 第一次是空数据
+	var articles []dao.Article
+	db := r.Context().Value("db").(*dao.SQLHelper)
+	for i := 0; i < 100; i++ {
+		id := strconv.Itoa(i)
+		article := db.GetArticle(id)
+		article.Name = "name" + id
+		article.Author = "author" + id
+		article.Brief = "brief" + id
+		article.Content = "content" + id
+		articles = append(articles, *article)
+	}
+	// 传入模拟数据以测试
 	test_data := util.Data{
 		"target": "index",
+		"articles": articles,
 	}
 	//if err := util.View(w, test_data, "html/index.html", "html/articles.html", "html/details.html"); err != nil {
 	if err := util.View(w, test_data, tmplFiles...); err != nil {
 		logrus.Warn(err)
 	}
-
 }
