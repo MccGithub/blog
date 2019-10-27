@@ -51,12 +51,19 @@ func Articles(w http.ResponseWriter, r *http.Request) {
 	var articles []dao.Article
 	db := r.Context().Value("db").(*dao.SQLHelper)
 	for i := 0; i < 100; i++ {
+		i := i
 		id := strconv.Itoa(i)
 		article := db.GetArticle(id)
-		article.Name = "name" + id
-		article.Author = "author" + id
-		article.Brief = "brief" + id
-		article.Content = "content" + id
+		if err := article.Get(); err != nil {
+			logrus.Warn(err)
+			article.Name = "name" + id
+			article.Author = "author" + id
+			article.Brief = "brief" + id
+			article.Content = "content" + id
+			if err := article.Insert(); err != nil {
+				logrus.Warn(err)
+			}
+		}
 		articles = append(articles, *article)
 	}
 	// 传入模拟数据以测试
