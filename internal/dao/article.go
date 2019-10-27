@@ -18,5 +18,19 @@ func (helper SQLHelper) GetArticle(id string) *Article {
 }
 
 func (article *Article) Get() error {
-	cmd := "SELECT "
+	cmd := "SELECT name, author, brief, content FROM article WHERE id = ?"
+	rows, err := article.helper.db.Query(cmd, article.Id)
+	if err != nil {
+		return err
+	}
+	if err = rows.Scan(&article.Name, &article.Author, &article.Brief, &article.Content); err != nil {
+		return err
+	}
+	return err
+}
+
+func (article *Article) Insert() error {
+	cmd := "INSERT INTO article(id, name, author, brief, content) VALUES(?, ?, ?, ?, ?)"
+	_, err := article.helper.db.Exec(cmd, article.Id, article.Name, article.Author, article.Brief, article.Content)
+	return err
 }

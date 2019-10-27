@@ -1,9 +1,11 @@
 package dao
 
 import (
+	"context"
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/sirupsen/logrus"
+	"net/http"
 )
 
 type SQLHelper struct {
@@ -38,4 +40,18 @@ func NewSQLHelper(driver, connstr string) (*SQLHelper, error) {
 	}
 	logrus.Debug("database initialized")
 	return &SQLHelper{db:db}, nil
+}
+
+func DBHandler(driver, connstr string) func(handler http.Handler) http.Handler {
+	helper, err := NewSQLHelper(driver, connstr)
+	if err != nil {
+		panic(err)
+	}
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			ctx = context.WithValue(ctx, "db", helper)
+			next.ServeHTTP(w, r.WithContext(ctx))
+		})
+	}
 }
