@@ -3,6 +3,7 @@ package web
 import (
 	"fmt"
 	"github.com/MccGithub/blog/internal/dao"
+	"github.com/MccGithub/blog/util"
 	"github.com/MccGithub/blog/web/details"
 	"github.com/MccGithub/blog/web/index"
 	"github.com/go-chi/chi"
@@ -25,10 +26,11 @@ func Serve(opt Opt) error {
 	handler := chi.NewRouter()
 
 	logrus.Tracef("%+v", opt)
-	if opt.DBConn != "" || opt.DBDriver != "" {
-		logrus.Trace("set db")
-		handler.Use(dao.DBHandler(opt.DBDriver, opt.DBConn))
-	}
+	//if opt.DBConn != "" || opt.DBDriver != "" {
+	//	logrus.Trace("set db")
+	//	handler.Use(dao.DBHandler(opt.DBDriver, opt.DBConn))
+	//}
+	handler.Use(dao.DBHandler(opt.DBDriver, util.GetDbPath(opt.DBConn)))
 
 	handler.Mount("/", index.Router())
 	handler.Mount("/details", details.Router())
