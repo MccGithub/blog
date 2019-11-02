@@ -3,8 +3,6 @@ package util
 import (
 	"html/template"
 	"io"
-	"io/ioutil"
-	"os"
 	"path/filepath"
 )
 
@@ -12,47 +10,19 @@ var (
 	BasePath         string
 	DbRelativePath string
 	TmplRelativePath string
-	ArtiRelativePath string
-	tmplBasePath string
-	artiBasePath string
-	dbBasePath string
 )
 
 type Data map[string]interface{}
 
-func GetTmplBasePath() string {
-	if tmplBasePath == "" {
-		tmplBasePath = filepath.Join(BasePath, TmplRelativePath)
-	}
-	return tmplBasePath
-}
-
-func GetDbBasePath() string {
-	if dbBasePath == "" {
-		dbBasePath = filepath.Join(BasePath, DbRelativePath)
-	}
-	return dbBasePath
+func GetDbPath(db string) string {
+	return filepath.Join(BasePath, DbRelativePath, db)
 }
 
 func GetTmplPath(file string) string {
 	return filepath.Join(BasePath, TmplRelativePath, file)
 }
 
-func GetArtiBasePath() string {
-	if artiBasePath == "" {
-		artiBasePath = filepath.Join(BasePath, ArtiRelativePath)
-	}
-	return artiBasePath
-}
 
-func GetArtiPath(file string) string {
-	return filepath.Join(BasePath, ArtiRelativePath, file)
-}
-
-func GetFileListByPath(path string) ([]os.FileInfo, error) {
-	files, err := ioutil.ReadDir(path)
-	return files, err
-}
 
 func View(w io.Writer, data Data, file ...string) error {
 	for i, v := range file {
@@ -73,4 +43,10 @@ func View(w io.Writer, data Data, file ...string) error {
 //	}
 //
 //	return tmpl.Execute(w, data)
+//}
+
+// 改为数据库实现后不需要再使用
+//func GetFileListByPath(path string) ([]os.FileInfo, error) {
+//	files, err := ioutil.ReadDir(path)
+//	return files, err
 //}
