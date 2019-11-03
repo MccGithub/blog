@@ -18,10 +18,6 @@ type Opt struct {
 	DBConn		string
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
-
-}
-
 func Serve(opt Opt) error {
 	handler := chi.NewRouter()
 

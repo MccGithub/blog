@@ -66,7 +66,7 @@ func Articles(w http.ResponseWriter, r *http.Request) {
 		}
 		articles = append(articles, *article)
 	}
-	// 传入模拟数据以测试
+	// 传入模拟数据以测试模板
 	test_data := util.Data{
 		"target": "index",
 		"articles": articles,
