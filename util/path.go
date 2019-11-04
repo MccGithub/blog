@@ -22,8 +22,6 @@ func GetTmplPath(file string) string {
 	return filepath.Join(BasePath, TmplRelativePath, file)
 }
 
-
-
 func View(w io.Writer, data Data, file ...string) error {
 	for i, v := range file {
 		file[i] = GetTmplPath(v)
