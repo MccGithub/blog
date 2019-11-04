@@ -29,6 +29,7 @@ func NewSQLHelper(driver, connstr string) (*SQLHelper, error) {
 			author varchar(128) NOT NULL,
 			brief TEXT NOT NULL,
 			content TEXT NOT NULL,
+			timestamp INTEGER NOT NULL,
 			PRIMARY KEY (id)
 			)`)
 	if err != nil {
