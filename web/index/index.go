@@ -5,7 +5,6 @@ import (
 	"github.com/MccGithub/blog/util"
 	"github.com/sirupsen/logrus"
 	"net/http"
-	"strconv"
 )
 
 // 这是文章存储为txt文件时的实现
@@ -42,37 +41,59 @@ import (
 //		logrus.Warn(err)
 //	}
 //}
+
+
+// 这是使用模拟数据测试的代码
+//func Articles(w http.ResponseWriter, r *http.Request) {
+//	tmplFiles := []string{
+//		"html/index.html",
+//		"html/articles.html",
+//		"html/details.html",
+//	}
+//	var articles []dao.Article
+//	db := r.Context().Value("db").(*dao.SQLHelper)
+//	for i := 0; i < 100; i++ {
+//		i := i
+//		id := strconv.Itoa(i)
+//		article := db.GetArticle(id)
+//		if err := article.Get(); err != nil {
+//			logrus.Warn(err)
+//			article.Name = "name" + id
+//			article.Author = "author" + id
+//			article.Brief = "brief" + id
+//			article.Content = "content" + id
+//			if err := article.Insert(); err != nil {
+//				logrus.Warn(err)
+//			}
+//		}
+//		articles = append(articles, *article)
+//	}
+//	// 传入模拟数据以测试模板
+//	test_data := util.Data{
+//		"target": "index",
+//		"articles": articles,
+//	}
+//	if err := util.View(w, test_data, tmplFiles...); err != nil {
+//		logrus.Warn(err)
+//	}
+//}
+
 func Articles(w http.ResponseWriter, r *http.Request) {
 	tmplFiles := []string{
 		"html/index.html",
 		"html/articles.html",
 		"html/details.html",
 	}
-	var articles []dao.Article
 	db := r.Context().Value("db").(*dao.SQLHelper)
-	for i := 0; i < 100; i++ {
-		i := i
-		id := strconv.Itoa(i)
-		article := db.GetArticle(id)
-		if err := article.Get(); err != nil {
-			logrus.Warn(err)
-			article.Name = "name" + id
-			article.Author = "author" + id
-			article.Brief = "brief" + id
-			article.Content = "content" + id
-			if err := article.Insert(); err != nil {
-				logrus.Warn(err)
-			}
-		}
-		articles = append(articles, *article)
+	articles, err := db.TraversingArticles()
+	if err != nil {
+		logrus.Warn(err)
 	}
-	// 传入模拟数据以测试模板
-	test_data := util.Data{
+	data := util.Data{
 		"target": "index",
 		"articles": articles,
 	}
-	//if err := util.View(w, test_data, "html/index.html", "html/articles.html", "html/details.html"); err != nil {
-	if err := util.View(w, test_data, tmplFiles...); err != nil {
+	if err := util.View(w, data, tmplFiles...); err != nil {
 		logrus.Warn(err)
 	}
 }
