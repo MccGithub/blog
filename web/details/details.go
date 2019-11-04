@@ -27,7 +27,6 @@ func Details(w http.ResponseWriter, r *http.Request) {
 		"target": "details",
 		"details": article,
 	}
-	//if err := util.View(w, test_data, "html/index.html", "html/articles.html", "html/details.html"); err != nil {
 	if err := util.View(w, data, tmplFiles...); err != nil {
 		logrus.Warn(err)
 	}
