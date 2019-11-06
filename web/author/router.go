@@ -6,7 +6,7 @@ func Router() chi.Router {
 	router := chi.NewRouter()
 
 	// 文章详情页, 显示文章名, 作者, 内容
-	router.Get("/{article_id}", Details)
+	router.Get("/{author}/{article}", Details)
 
 	return router
 }
