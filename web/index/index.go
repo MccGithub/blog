@@ -1,10 +1,11 @@
 package index
 
 import (
+	"net/http"
+
 	"github.com/MccGithub/blog/internal/dao"
 	"github.com/MccGithub/blog/util"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 // 这是文章存储为txt文件时的实现
@@ -42,7 +43,6 @@ import (
 //	}
 //}
 
-
 // 这是使用模拟数据测试的代码
 //func Articles(w http.ResponseWriter, r *http.Request) {
 //	tmplFiles := []string{
@@ -78,7 +78,7 @@ import (
 //	}
 //}
 
-func Articles(w http.ResponseWriter, r *http.Request) {
+func Index(w http.ResponseWriter, r *http.Request) {
 	tmplFiles := []string{
 		"html/index.html",
 		"html/articles.html",
@@ -90,7 +90,7 @@ func Articles(w http.ResponseWriter, r *http.Request) {
 		logrus.Warn(err)
 	}
 	data := util.Data{
-		"target": "index",
+		"target":   "index",
 		"articles": articles,
 	}
 	if err := util.View(w, data, tmplFiles...); err != nil {

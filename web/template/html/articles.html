@@ -2,7 +2,7 @@
 <!--
     文章列表模板
     显示文章的:
-        文章名(Name)
+        文章名(Title)
         作者(Author)
         概述(Brief)
     链接的<a>标签中href后面加入?id以判断具体的文章数据, details中根据id获取具体文章
@@ -24,7 +24,7 @@
         <!-- 使用range展开具体的文章列表 -->
         {{range .}}
             <div class="item">
-                <a href="/details/{{.Id}}"><b class="name">{{.Name}}</b></a><p class="author">by: {{.Author}}</pc>
+                <a href="/{{.Author}}/{{.Title}}"><b class="name">{{.Title}}</b></a><p class="author">by: {{.Author}}</pc>
                 <p class="brief">{{.Brief}}</p>
             </div>
         {{end}}

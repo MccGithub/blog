@@ -30,7 +30,7 @@ func Article(w http.ResponseWriter, r *http.Request) {
 	article := db.GetArticle(author_name, article_name)
 	if err := article.Get(); err != nil {
 		logrus.Warn(err)
-		index.Articles(w, r)
+		index.Index(w, r)
 		return
 	}
 	//article.Content = strings.ReplaceAll(article.Content)

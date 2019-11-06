@@ -2,35 +2,34 @@ package web
 
 import (
 	"fmt"
+	"net/http"
+
+	"github.com/MccGithub/blog/web/author"
+
 	"github.com/MccGithub/blog/internal/dao"
 	"github.com/MccGithub/blog/util"
-	"github.com/MccGithub/blog/web/details"
 	"github.com/MccGithub/blog/web/index"
 	"github.com/go-chi/chi"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 type Opt struct {
-	Address		string
+	Address string
 
-	DBDriver 	string
-	DBConn		string
+	DBDriver string
+	DBConn   string
 }
 
 func Serve(opt Opt) error {
-	handler := chi.NewRouter()
+	router := chi.NewRouter()
+
+	logrus.Trace("set db")
+	router.Use(dao.DBHandler(opt.DBDriver, util.GetDbPath(opt.DBConn)))
 
 	logrus.Tracef("%+v", opt)
-	//if opt.DBConn != "" || opt.DBDriver != "" {
-	//	logrus.Trace("set db")
-	//	handler.Use(dao.DBHandler(opt.DBDriver, opt.DBConn))
-	//}
-	handler.Use(dao.DBHandler(opt.DBDriver, util.GetDbPath(opt.DBConn)))
-
-	handler.Mount("/", index.Router())
-	handler.Mount("/details", details.Router())
+	router.Mount("/", index.Router())
+	router.Mount("/{author}", author.Router())
 
 	fmt.Println("Listening at ", opt.Address)
-	return http.ListenAndServe(opt.Address, handler)
+	return http.ListenAndServe(opt.Address, router)
 }
