@@ -24,13 +24,24 @@ func NewSQLHelper(driver, connstr string) (*SQLHelper, error) {
 	}
 
 	_, err = tx.Exec(`CREATE TABLE IF NOT EXISTS article (
-			id varchar(128),
-			name varchar(128) NOT NULL,
+			title varchar(128) NOT NULL,
 			author varchar(128) NOT NULL,
 			brief TEXT NOT NULL,
 			content TEXT NOT NULL,
 			timestamp INTEGER NOT NULL,
-			PRIMARY KEY (id)
+			PRIMARY KEY (author, title)
+			)`)
+	if err != nil {
+		return nil, err
+	}
+	//if err = tx.Commit(); err != nil {
+	//	return nil, err
+	//}
+
+	_, err = tx.Exec(`CREATE TABLE IF NOT EXISTS author (
+			author varchar(128) NOT NULL,
+			timestamp INTEGER NOT NULL,
+			PRIMARY KEY (author)
 			)`)
 	if err != nil {
 		return nil, err
