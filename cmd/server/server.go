@@ -2,21 +2,22 @@ package main
 
 import (
 	"flag"
-	"github.com/MccGithub/blog/util"
-	"github.com/MccGithub/blog/web"
-	"github.com/sirupsen/logrus"
 	"os"
 	"runtime"
 	"strings"
+
+	"github.com/MccGithub/blog/util"
+	"github.com/MccGithub/blog/web"
+	"github.com/sirupsen/logrus"
 )
 
 var (
 	logLevel string
-	opt web.Opt
+	opt      web.Opt
 )
 
 func init() {
-	flag.StringVar(&opt.Address, "listen", ":80", "listening address")
+	flag.StringVar(&opt.Address, "listen", ":8080", "listening address")
 	flag.StringVar(&opt.DBDriver, "db.driver", "sqlite3", "database driver. supported: sqlit3")
 	flag.StringVar(&opt.DBConn, "db.conn", "data.db", "connection string")
 	flag.StringVar(&logLevel, "log.level", "warn", "logging level: trace, debug, info, error, fatal")
@@ -29,7 +30,7 @@ func getCurrent() {
 	// 故必须在main中定义并在main函数首行执行
 	_, util.BasePath, _, _ = runtime.Caller(0)
 	i := strings.LastIndex(util.BasePath, string(os.PathSeparator))
-	util.BasePath = util.BasePath[0:i+1]
+	util.BasePath = util.BasePath[0 : i+1]
 }
 
 func main() {
