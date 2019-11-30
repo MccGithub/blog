@@ -3,8 +3,8 @@ package index
 import (
 	"net/http"
 
-	"github.com/MccGithub/blog/internal/dao"
-	"github.com/MccGithub/blog/util"
+	"github.com/chive-chan/blog/internal/dao"
+	"github.com/chive-chan/blog/util"
 	"github.com/sirupsen/logrus"
 )
 

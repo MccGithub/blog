@@ -1,7 +1,7 @@
 package author
 
 import (
-	"github.com/MccGithub/blog/web/author/article"
+	"github.com/chive-chan/blog/web/author/article"
 	"github.com/go-chi/chi"
 )
 

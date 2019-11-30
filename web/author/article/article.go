@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/MccGithub/blog/internal/dao"
-	"github.com/MccGithub/blog/util"
-	"github.com/MccGithub/blog/web/index"
+	"github.com/chive-chan/blog/internal/dao"
+	"github.com/chive-chan/blog/util"
+	"github.com/chive-chan/blog/web/index"
 	"github.com/go-chi/chi"
 	"github.com/sirupsen/logrus"
 )

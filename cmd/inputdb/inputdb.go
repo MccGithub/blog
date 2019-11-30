@@ -7,10 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/russross/blackfriday"
-
-	"github.com/MccGithub/blog/internal/dao"
+	"github.com/chive-chan/blog/internal/dao"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/russross/blackfriday"
 )
 
 var (

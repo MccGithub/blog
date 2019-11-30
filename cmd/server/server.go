@@ -6,8 +6,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/MccGithub/blog/util"
-	"github.com/MccGithub/blog/web"
+	"github.com/chive-chan/blog/util"
+	"github.com/chive-chan/blog/web"
 	"github.com/sirupsen/logrus"
 )
 

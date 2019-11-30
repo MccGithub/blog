@@ -4,11 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/MccGithub/blog/web/author"
-
-	"github.com/MccGithub/blog/internal/dao"
-	"github.com/MccGithub/blog/util"
-	"github.com/MccGithub/blog/web/index"
+	"github.com/chive-chan/blog/internal/dao"
+	"github.com/chive-chan/blog/util"
+	"github.com/chive-chan/blog/web/author"
+	"github.com/chive-chan/blog/web/index"
 	"github.com/go-chi/chi"
 	"github.com/sirupsen/logrus"
 )
@@ -22,6 +21,7 @@ type Opt struct {
 
 func Serve(opt Opt) error {
 	router := chi.NewRouter()
+	//os.OpenFile()
 
 	logrus.Trace("set db")
 	router.Use(dao.DBHandler(opt.DBDriver, util.GetDbPath(opt.DBConn)))
